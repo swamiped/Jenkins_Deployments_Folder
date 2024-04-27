@@ -1,0 +1,24 @@
+pipeline{
+	agent any
+	environment{
+		DOCKER_IMAGE = 'helloworld-java'
+	}
+	stages{
+		stage('Docker Build'){
+			steps{
+				script{
+					docker.build DOCKER_IMAGE, '-f Dockerfile .'
+					}
+			}
+			}
+		stage('Run Docker COntainer'){
+			steps{
+				script{
+					docker.run("-p 8080:8080 --name helloworld-container ${DOCKER_IMAGE}")
+					}
+				}
+			}
+		}
+}
+
+			
