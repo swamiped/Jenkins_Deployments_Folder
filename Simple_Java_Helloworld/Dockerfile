@@ -3,7 +3,7 @@ FROM openjdk:11
 
 WORKDIR /app
 
-COPY HelloWorld.java .
+COPY Simple_Java_Helloworld/HelloWorld.java .
 
 RUN javac HelloWorld.java
 
