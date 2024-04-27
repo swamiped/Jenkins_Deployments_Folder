@@ -6,8 +6,9 @@ pipeline{
 	stages{
 		stage('Docker Build'){
 			steps{
-				sh 'docker build . -t DOCKER_IMAGE -f Simple_Java_Helloworld/Dockerfile'
-
+				script{
+				docker.build DOCKER_IMAGE, "-f Simple_Java_Helloworld/Dockerfile ."
+				}
 				
 			}
 			}
