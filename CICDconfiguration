@@ -1,0 +1,91 @@
+
+=========================================================
+
+Creating an CICD tools  installatoion setup on EC2 Instance
+
+========================================================
+
+----------------------------  AWS EC2 Instance Creation and Login -------------------------------
+0- Create a AWS account and search for EC2 services in service catalogue
+1- create an EC2 Instance on required type of OS in AWS(CLI/AWS Console/...)
+2- save the key value pair to login into the EC2 instance and change the file permissions to read only using below cmd in linux
+   - chmod 400 filename
+3- use ssh/putty/mobaterm to login into the EC2 instance created,for ssh use below cmd:
+   - ssh -i location\of\the\keyvaluepair User@ip-address
+4- login will be successfull after that
+
+
+===========================================================
+
+-----------------------------Install git and configure ----------------------------------------
+
+1- Incase git is not available in EC2 instance
+	- check: git --version
+	- first update package manager: sudo apt update
+	- to install: sudo apt install git
+2- configure your username and email using below cmds:
+	- git config --global user.name "Your Name"
+	- git config --global user.email "youremail@domain.com"
+	- git config --list
+3- To initialize local repository use cmd:
+	- git init
+4- To Clone a remote repository to local:
+	- git clone "https://github.com/user/name-of-repository"
+5- To check the status of the git 
+	- git status
+6- To add the files from untracked to tracked state
+	- git add .(or)name_of_the_file
+7- To commit the changes 
+	- git commit -m "give the msg what changes made for your understanding"
+8- To push the changes to remote repository 
+	- git remote add origin <REMOTE_URL>
+	- git push
+9- To pull the changes 
+	- git pull
+10- To check the branches
+	- git branches
+	- git checkout branch-name
+Note:- sometimes pushing documents to remote repository fails due to two factor authentication use ssh public key and add it into the github/settings/sshkeys/add-new-key
+	- ssh-keygen -t rsa
+	- edit the config file and add the url as "git@github.com/username/name_of_repository"
+some more useful git cmds:
+	- git remote -v
+	- git diff
+	- git log --oneline
+	- git merge /git rebase / git cherry-pick
+	- git push origin --delete branchname
+
+================================================================================
+
+----------------------------- install jenkins and configure -----------------------------
+
+
+Before installing jenkins we need to install java jre to run jenkins 
+
+	- sudo apt install openjdk-17-jre
+
+	- java -version
+Install Jenkins
+	- curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+	- echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \ https://pkg.jenkins.io/debian binary/ | sudo tee \  /etc/apt/sources.list.d/jenkins.list > /dev/null
+	- sudo apt-get update
+	- sudo apt-get install jenkins
+
+TO start Jenkins
+	- sudo systemctl start jenkins
+	- then access using http://ip-address:8080/
+	- create user and install necessary plugins and restart jenkins and also install docker pipeline plugin
+==================================================================================
+
+-----------------------------Install Docker and start docker service ---------------------------
+
+- To install use
+	- sudo apt update
+	- sudo apt install docker.io
+- Grant permission jenkins and Ubuntu permission docker
+	- sudo su - 
+	- usermod -aG docker jenkins
+	- usermod -aG docker ubuntu
+	- systemctl restart docker
+===================================================================================
+
