@@ -15,7 +15,7 @@ pipeline{
 		stage('Run Docker Container'){
 			steps{
 				script{
-					sh "docker run -p 8081:8080 --name helloworld-container ${DOCKER_IMAGE}"
+					sh "docker run -p 8081:8080 --name helloworld-containers ${DOCKER_IMAGE}"
 					}
 				}
 			}
