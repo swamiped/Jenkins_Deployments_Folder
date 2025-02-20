@@ -82,7 +82,7 @@ TO start Jenkins
 - To install use
 	- sudo apt update
 	- sudo apt install docker.io
-- Grant permission jenkins and Ubuntu permission docker
+- Grant permission to jenkins and Ubuntu users for using docker-daemon
 	- sudo su - 
 	- usermod -aG docker jenkins
 	- usermod -aG docker ubuntu
